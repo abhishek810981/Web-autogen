@@ -66,6 +66,58 @@ src/
 - [Framer Motion](https://www.framer.com/motion/)
 - [Lucide Icons](https://lucide.dev/)
 
+## EC2 File Management
+
+To delete files from an EC2 instance, you can use the following methods:
+
+### Using SSH Command Line
+
+1. Connect to your EC2 instance:
+```bash
+ssh -i "your-key.pem" ec2-user@your-ec2-ip
+```
+
+2. Navigate to the directory containing the file:
+```bash
+cd /path/to/directory
+```
+
+3. Delete files using the rm command:
+```bash
+# Delete a single file
+rm filename.txt
+
+# Delete multiple files
+rm file1.txt file2.txt
+
+# Delete a directory and its contents
+rm -r directory_name
+
+# Force delete (use with caution)
+rm -f filename.txt
+
+# Delete all files in current directory (use with caution)
+rm -rf *
+```
+
+### Using AWS CLI
+
+You can also use AWS CLI to manage files:
+
+```bash
+# Sync local directory with S3
+aws s3 sync . s3://your-bucket
+
+# Delete files from S3
+aws s3 rm s3://your-bucket/filename.txt
+```
+
+⚠️ **Important Notes:**
+- Always double-check before using rm -rf commands
+- Make sure you have proper backups before deleting files
+- Ensure you have the correct permissions
+- Consider using --preserve-root flag for additional safety
+
 ## License
 
 [MIT License](LICENSE)
