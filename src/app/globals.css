@@ -1,0 +1,739 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+body {
+  font-family: "Poppins", "Avenir", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: normal;
+  --background-color: #18181bac;
+  --text-color: #A1A1AA;
+
+  --card-background-color: rgba(255, 255, 255, .015);
+  --card-border-color: rgba(255, 255, 255, 0.1);
+  --card-box-shadow-1: rgba(0, 0, 0, 0.05);
+  --card-box-shadow-1-y: 3px;
+  --card-box-shadow-1-blur: 6px;
+  --card-box-shadow-2: rgba(0, 0, 0, 0.1);
+  --card-box-shadow-2-y: 8px;
+  --card-box-shadow-2-blur: 15px;
+  --card-label-color: #FFFFFF;
+  --card-icon-color: #D4D4D8;
+  --card-icon-background-color: rgba(255, 255, 255, 0.08);
+  --card-icon-border-color: rgba(255, 255, 255, 0.12);
+  --card-shine-opacity: .1;
+  --card-shine-gradient: conic-gradient(from 205deg at 50% 50%, rgba(16, 185, 129, 0) 0deg, #10B981 25deg, rgba(52, 211, 153, 0.18) 295deg, rgba(16, 185, 129, 0) 360deg);
+  --card-line-color: #2A2B2C;
+  --card-tile-color: rgba(16, 185, 129, 0.05);
+
+  --card-hover-border-color: rgba(255, 255, 255, 0.2);
+  --card-hover-box-shadow-1: rgba(0, 0, 0, 0.04);
+  --card-hover-box-shadow-1-y: 5px;
+  --card-hover-box-shadow-1-blur: 10px;
+  --card-hover-box-shadow-2: rgba(0, 0, 0, 0.3);
+  --card-hover-box-shadow-2-y: 15px;
+  --card-hover-box-shadow-2-blur: 25px;
+  --card-hover-icon-color: #34D399;
+  --card-hover-icon-background-color: rgba(52, 211, 153, 0.1);
+  --card-hover-icon-border-color: rgba(52, 211, 153, 0.2);
+
+  --blur-opacity: .01;
+}
+
+body.light {
+  --background-color: #FAFAFA;
+  --text-color: #52525B;
+
+  --card-background-color: transparent;
+  --card-border-color: rgba(24, 24, 27, 0.08);
+  --card-box-shadow-1: rgba(24, 24, 27, 0.02);
+  --card-box-shadow-1-y: 3px;
+  --card-box-shadow-1-blur: 6px;
+  --card-box-shadow-2: rgba(24, 24, 27, 0.04);
+  --card-box-shadow-2-y: 2px;
+  --card-box-shadow-2-blur: 7px;
+  --card-label-color: #18181B;
+  --card-icon-color: #18181B;
+  --card-icon-background-color: rgba(24, 24, 27, 0.04);
+  --card-icon-border-color: rgba(24, 24, 27, 0.1);
+  --card-shine-opacity: .3;
+  --card-shine-gradient: conic-gradient(from 225deg at 50% 50%, rgba(16, 185, 129, 0) 0deg, #10B981 25deg, #EDFAF6 285deg, #FFFFFF 345deg, rgba(16, 185, 129, 0) 360deg);
+  --card-line-color: #E9E9E7;
+  --card-tile-color: rgba(16, 185, 129, 0.08);
+
+  --card-hover-border-color: rgba(24, 24, 27, 0.15);
+  --card-hover-box-shadow-1: rgba(24, 24, 27, 0.05);
+  --card-hover-box-shadow-1-y: 3px;
+  --card-hover-box-shadow-1-blur: 6px;
+  --card-hover-box-shadow-2: rgba(24, 24, 27, 0.1);
+  --card-hover-box-shadow-2-y: 8px;
+  --card-hover-box-shadow-2-blur: 15px;
+  --card-hover-icon-color: #18181B;
+  --card-hover-icon-background-color: rgba(24, 24, 27, 0.04);
+  --card-hover-icon-border-color: rgba(24, 24, 27, 0.34);
+
+  --blur-opacity: .1;
+}
+
+body.toggle .grid * {
+  transition-duration: 0s !important;
+}
+
+.interactive-element {
+  cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-fade-in-delay {
+  animation: fadeIn 0.6s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Modern Scrollbar Styles */
+.modern-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+.modern-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(99, 102, 241, 0.3);
+  border-radius: 20px;
+  border: transparent;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(99, 102, 241, 0.5);
+}
+
+.animation-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 100%;
+  gap: 24px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .animation-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .animation-card-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.card {
+  background-color: var(--background-color);
+  box-shadow: 0px var(--card-box-shadow-1-y) var(--card-box-shadow-1-blur) var(--card-box-shadow-1), 
+              0px var(--card-box-shadow-2-y) var(--card-box-shadow-2-blur) var(--card-box-shadow-2), 
+              0 0 0 1px var(--card-border-color);
+  padding: 24px;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow .25s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.02), transparent);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  background-color: var(--card-background-color);
+}
+
+.icon-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 12px;
+  width: fit-content;
+}
+
+.card .icon {
+  z-index: 2;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--card-icon-background-color);
+  transition: all 0.3s ease;
+  transform: translateZ(0);
+}
+
+.card .icon::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card:hover .icon {
+  transform: translateZ(0) scale(1.1);
+  background: var(--card-hover-icon-background-color);
+}
+
+.card .icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--card-icon-border-color);
+  backdrop-filter: blur(2px);
+  transition: border-color .25s;
+}
+
+.card .icon svg {
+  position: relative;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  color: var(--card-icon-color);
+  transition: color .25s, transform .3s ease;
+}
+
+.card:hover .icon svg {
+  transform: scale(1.1);
+  color: var(--card-hover-icon-color);
+}
+
+.card h4 {
+  z-index: 2;
+  position: relative;
+  margin: 8px 0;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--card-label-color);
+}
+
+.card p {
+  z-index: 2;
+  position: relative;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-color);
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card .shine {
+  border-radius: inherit;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+.card .shine:before {
+  content: '';
+  width: 150%;
+  padding-bottom: 150%;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  bottom: 55%;
+  filter: blur(35px);
+  opacity: var(--card-shine-opacity);
+  transform: translateX(-50%);
+  background-image: var(--card-shine-gradient);
+}
+
+.card .background {
+  border-radius: inherit;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(circle at 50% 10%, black 0%, transparent 70%);
+  mask-image: radial-gradient(circle at 50% 10%, black 0%, transparent 70%);
+}
+
+.card .background .tiles {
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.card .background .tile {
+  position: absolute;
+  background-color: var(--card-tile-color);
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  opacity: 0;
+}
+
+.card .background .tile.tile-4,
+.card .background .tile.tile-6,
+.card .background .tile.tile-10 {
+  animation-delay: -2s;
+}
+
+.card .background .tile.tile-3,
+.card .background .tile.tile-5,
+.card .background .tile.tile-8 {
+  animation-delay: -4s;
+}
+
+.card .background .tile.tile-2,
+.card .background .tile.tile-9 {
+  animation-delay: -6s;
+}
+
+.card .background .tile-1 {
+  top: 0;
+  left: 0;
+  height: 10%;
+  width: 22.5%;
+}
+
+.card .background .tile-2 {
+  top: 0;
+  left: 22.5%;
+  height: 10%;
+  width: 27.5%;
+}
+
+.card .background .tile-3 {
+  top: 0;
+  left: 50%;
+  height: 10%;
+  width: 27.5%;
+}
+
+.card .background .tile-4 {
+  top: 0;
+  left: 77.5%;
+  height: 10%;
+  width: 22.5%;
+}
+
+.card .background .tile-5 {
+  top: 10%;
+  left: 0;
+  height: 22.5%;
+  width: 22.5%;
+}
+
+.card .background .tile-6 {
+  top: 10%;
+  left: 22.5%;
+  height: 22.5%;
+  width: 27.5%;
+}
+
+.card .background .tile-7 {
+  top: 10%;
+  left: 50%;
+  height: 22.5%;
+  width: 27.5%;
+}
+
+.card .background .tile-8 {
+  top: 10%;
+  left: 77.5%;
+  height: 22.5%;
+  width: 22.5%;
+}
+
+.card .background .tile-9 {
+  top: 32.5%;
+  left: 50%;
+  height: 22.5%;
+  width: 27.5%;
+}
+
+.card .background .tile-10 {
+  top: 32.5%;
+  left: 77.5%;
+  height: 22.5%;
+  width: 22.5%;
+}
+
+@keyframes tile {
+  0%, 12.5%, 100% {
+    opacity: 1;
+  }
+
+  25%, 82.5% {
+    opacity: 0;
+  }
+}
+
+.card .background .line {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .35s;
+}
+
+.card .background .line:before,
+.card .background .line:after {
+  content: '';
+  position: absolute;
+  background-color: var(--card-line-color);
+  transition: transform .35s;
+}
+
+.card .background .line:before {
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+.card .background .line:after {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform-origin: 50% 0;
+  transform: scaleY(0);
+}
+
+.card .background .line.line-1:before {
+  top: 10%;
+}
+
+.card .background .line.line-1:after {
+  left: 22.5%;
+}
+
+.card .background .line.line-1:before,
+.card .background .line.line-1:after {
+  transition-delay: .3s;
+}
+
+.card .background .line.line-2:before {
+  top: 32.5%;
+}
+
+.card .background .line.line-2:after {
+  left: 50%;
+}
+
+.card .background .line.line-2:before,
+.card .background .line.line-2:after {
+  transition-delay: .15s;
+}
+
+.card .background .line.line-3:before {
+  top: 55%;
+}
+
+.card .background .line.line-3:after {
+  right: 22.5%;
+}
+
+.card:hover {
+  box-shadow: 0px 3px 6px var(--card-hover-box-shadow-1),
+              0px var(--card-hover-box-shadow-2-y) var(--card-hover-box-shadow-2-blur) var(--card-hover-box-shadow-2),
+              0 0 0 1px var(--card-hover-border-color);
+}
+
+.card:hover .icon::after {
+  background-color: var(--card-hover-icon-background-color);
+  border-color: var(--card-hover-icon-border-color);
+}
+
+.card:hover .icon svg {
+  color: var(--card-hover-icon-color);
+}
+
+.card:hover .shine {
+  opacity: 1;
+  transition-duration: .5s;
+  transition-delay: 0s;
+}
+
+.card:hover .background .tiles {
+  opacity: 1;
+  transition-delay: .25s;
+}
+
+.card:hover .background .tile {
+  animation-name: tile;
+}
+
+.card:hover .background .line {
+  opacity: 1;
+  transition-duration: .15s;
+}
+
+.card:hover .background .line:before {
+  transform: scaleX(1);
+}
+
+.card:hover .background .line:after {
+  transform: scaleY(1);
+}
+
+.card:hover .background .line.line-1:before,
+.card:hover .background .line.line-1:after {
+  transition-delay: 0s;
+}
+
+.card:hover .background .line.line-2:before,
+.card:hover .background .line.line-2:after {
+  transition-delay: .15s;
+}
+
+.card:hover .background .line.line-3:before,
+.card:hover .background .line.line-3:after {
+  transition-delay: .3s;
+}
+
+.day-night {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  opacity: .3;
+}
+
+.day-night input {
+  display: none;
+}
+
+.day-night input + div {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  box-shadow: inset 8px -8px 0 0 var(--text-color);
+  transform: scale(1) rotate(-2deg);
+  transition: box-shadow .5s ease 0s, transform .4s ease .1s;
+}
+
+.day-night input + div:before {
+  content: '';
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: background-color .3s ease;
+}
+
+.day-night input + div:after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin: -3px 0 0 -3px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 -23px 0 var(--text-color), 
+              0 23px 0 var(--text-color), 
+              23px 0 0 var(--text-color), 
+              -23px 0 0 var(--text-color), 
+              15px 15px 0 var(--text-color), 
+              -15px 15px 0 var(--text-color), 
+              15px -15px 0 var(--text-color), 
+              -15px -15px 0 var(--text-color);
+  transform: scale(0);
+  transition: all .3s ease;
+}
+
+.day-night input:checked + div {
+  box-shadow: inset 20px -20px 0 0 var(--text-color);
+  transform: scale(.5) rotate(0deg);
+  transition: transform .3s ease .1s, box-shadow .2s ease 0s;
+}
+
+.day-night input:checked + div:before {
+  background: var(--text-color);
+  transition: background-color .3s ease .1s;
+}
+
+.day-night input:checked + div:after {
+  transform: scale(1);
+  transition: transform .5s ease .15s;
+}
+
+.third-section-container {
+  min-height: auto;
+  padding: 120px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: var(--background-color);
+}
+
+@media (max-width: 768px) {
+  .third-section-container {
+    padding: 40px 16px;
+  }
+}
+
+.third-section-container:before {
+  content: '';
+  position: absolute;
+  inset: 0 -60% 65% -60%;
+  background-image: radial-gradient(ellipse at top, #10B981 0%, var(--background-color) 50%);
+  opacity: var(--blur-opacity);
+}
+
+.third-section-container .grid {
+  position: relative;
+  z-index: 1;
+}
+
+.second-section-container {
+  min-height: auto;
+  padding: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #a1a1aa6b;
+}
+
+.second-section-container .second-card {
+  max-width: 1000px;
+  width: 100%;
+  min-height: 300px;
+  max-height: none;
+  padding: 42px;
+  height: fit-content;
+}
+
+.second-section-container .second-card .card-container {
+  display: flex;
+  height: 100%;
+}
+
+.second-section-container .second-card .card-container .left-section .features {
+  margin: 16px 0;
+}
+
+.second-section-container .second-card .card-container .left-section .card-actions {
+  margin-top: 16px;
+}
+
+.second-section-container .second-card .card-container .left-section .card-actions .button {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .second-section-container .second-card {
+    padding: 20px;
+    min-height: auto;
+  }
+  
+  .second-section-container .second-card .card-container {
+    gap: 20px;
+  }
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Add smooth scrolling styles */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Add a subtle mask for infinite scroll edges */
+.overflow-x-auto {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
