@@ -8,6 +8,8 @@ import DesignToCodeSection from '../DesignToCodeSection/DesignToCodeSection';
 import Resources from '../Resources/Resources';
 import Pricing from '../Pricing/Pricing';
 import Footer from '../Footer/Footer';
+import JsonLdProvider from '../JsonLd/JsonLdProvider';
+import { createWebsiteSchema } from '../JsonLd/jsonLdSchemas';
 
 const EnhancedLanding: React.FC = () => {
     const [timeLeft, setTimeLeft] = useState({
@@ -39,16 +41,72 @@ const EnhancedLanding: React.FC = () => {
         return () => clearInterval(timer);
     }, []);
 
+    const features = [
+        {
+            title: "AI-Powered Development",
+            description: "Leverage advanced AI to automate and enhance your development workflow",
+            icon: "🤖"
+        },
+        {
+            title: "Visual Tools",
+            description: "Create stunning interfaces with our intuitive visual development tools",
+            icon: "🎨"
+        },
+        {
+            title: "Enterprise Solutions",
+            description: "Scale your applications with our enterprise-grade development platform",
+            icon: "🏢"
+        }
+    ];
+
+    // Enhanced schema for software application
+    const softwareSchema = {
+        "@type": "SoftwareApplication",
+        name: "AutoGen Labs Platform",
+        applicationCategory: "DeveloperApplication",
+        operatingSystem: "Web",
+        offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+            priceSpecification: {
+                "@type": "PriceSpecification",
+                price: "0",
+                priceCurrency: "USD",
+                valueAddedTaxIncluded: false
+            }
+        },
+        aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.8",
+            ratingCount: "1250",
+            bestRating: "5",
+            worstRating: "1"
+        },
+        featureList: features.map(f => f.title).join(", ")
+    };
+
+    // Combine schemas
+    const schemas = [
+        createWebsiteSchema({
+            potentialAction: {
+                "@type": "DownloadAction",
+                target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://autogenlabs.com/download",
+                    actionPlatform: [
+                        "http://schema.org/DesktopWebPlatform",
+                        "http://schema.org/IOSPlatform",
+                        "http://schema.org/AndroidPlatform"
+                    ]
+                }
+            }
+        }),
+        { type: "SoftwareApplication", data: softwareSchema }
+    ];
+
     return (
         <div className="min-h-screen bg-black text-white">
-            <div className="bg-purple-900/20 text-center py-2 px-4">
-                <p className="text-sm flex items-center justify-center gap-2">
-                    <span>Launching April 28th</span>
-                    <span className="font-mono">
-                        {timeLeft.days}d : {timeLeft.hours}h : {timeLeft.minutes}m : {timeLeft.seconds}s
-                    </span>
-                </p>
-            </div>
             <Navbar />
             <Hero />
             <Features />

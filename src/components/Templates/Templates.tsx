@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Head from 'next/head';
 import { ArrowRight, Star, Layout, Code, Box, Tags, Users, Shield } from 'lucide-react';
 
 export default function Templates() {
@@ -85,12 +86,41 @@ export default function Templates() {
         }
     ];
 
+    const templateStructuredData = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": templates.map((template, index) => ({
+            "@type": "SoftwareApplication",
+            "position": index + 1,
+            "name": template.title,
+            "description": template.description,
+            "applicationCategory": "WebApplication",
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": template.rating,
+                "reviewCount": template.reviews
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        }))
+    };
+
     const filteredTemplates = activeCategory === 'all' 
         ? templates 
         : templates.filter(template => template.category === activeCategory);
 
     return (
-        <section className="relative min-h-screen bg-gray-950 py-20 overflow-hidden">
+        <section className="relative min-h-screen bg-gray-950 py-20 overflow-hidden" role="main" aria-label="Templates Section">
+            <Head>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(templateStructuredData) }}
+                />
+            </Head>
+
             {/* Animated Background */}
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950" />

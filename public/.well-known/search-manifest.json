@@ -1,0 +1,42 @@
+{
+  "name": "AutoGen Labs Search",
+  "short_name": "AutoGen Search",
+  "description": "Search AutoGen Labs documentation, templates, and resources",
+  "icons": [
+    {
+      "src": "/icons/search-icon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ],
+  "url_templates": {
+    "query": "https://autogenlabs.com/search?q={search_term}",
+    "site": "https://autogenlabs.com"
+  },
+  "search_provider": {
+    "name": "AutoGen Labs",
+    "search_endpoint": "https://autogenlabs.com/api/search"
+  },
+  "search_tags": [
+    "development",
+    "ai",
+    "visual-development",
+    "templates",
+    "documentation"
+  ],
+  "developer": {
+    "name": "AutoGen Labs",
+    "url": "https://autogenlabs.com"
+  },
+  "related_applications": [],
+  "search_features": {
+    "supports_dynamic_suggestions": true,
+    "supports_instant_results": true,
+    "supports_voice_search": false
+  },
+  "content_security_policy": {
+    "connect-src": ["'self'", "https://autogenlabs.com"],
+    "img-src": ["'self'", "https://cdn.builder.io", "data:"],
+    "script-src": ["'self'", "'unsafe-inline'", "https://www.google-analytics.com"]
+  }
+}
