@@ -48,7 +48,10 @@ export async function GET() {
           const localeDomain = locale === i18nConfig.defaultLocale
             ? baseUrl
             : `https://${locale}.autogenlabs.com`;
-          const path = `/blog/${article.title[locale].toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+          const validLocales = ['en', 'es', 'fr'] as const;
+const localeKey = locale as keyof typeof article.title;
+const title = article.title[localeKey] || article.title['en'];
+const path = `/blog/${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
           const url = `${localeDomain}${path}`;
           
           return `
@@ -57,10 +60,10 @@ export async function GET() {
               <news:news>
                 <news:publication>
                   <news:name>AutoGen Labs</news:name>
-                  <news:language>${languageMetadata[locale].locale}</news:language>
+                  <news:language>${languageMetadata[locale as keyof typeof languageMetadata].hreflang}</news:language>
                 </news:publication>
                 <news:publication_date>${article.publishDate}</news:publication_date>
-                <news:title>${article.title[locale]}</news:title>
+                <news:title>${article.title[locale as keyof typeof article.title]}</news:title>
                 <news:keywords>${article.category}</news:keywords>
               </news:news>
               <lastmod>${article.lastMod}</lastmod>
@@ -68,11 +71,11 @@ export async function GET() {
                 const alternateDomain = alternateLang === i18nConfig.defaultLocale
                   ? baseUrl
                   : `https://${alternateLang}.autogenlabs.com`;
-                const alternatePath = `/blog/${article.title[alternateLang].toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+                const alternatePath = `/blog/${(article.title[alternateLang as keyof typeof article.title] || article.title['en']).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
                 return `
                   <xhtml:link 
                     rel="alternate" 
-                    hreflang="${languageMetadata[alternateLang].locale}"
+                    hreflang="${languageMetadata[alternateLang as keyof typeof languageMetadata].hreflang}"
                     href="${alternateDomain}${alternatePath}"
                   />`;
               }).join('')}

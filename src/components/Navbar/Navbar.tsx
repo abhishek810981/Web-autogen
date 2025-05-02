@@ -2,11 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
-import Link from 'next/link';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
-export default function Navbar() {
+const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { scrollY } = useScroll();
@@ -15,22 +13,12 @@ export default function Navbar() {
         setIsScrolled(latest > 50);
     });
 
-    const [locale, setLocale] = useState('en');
-    
-    useEffect(() => {
-        const cookieLocale = document.cookie
-            .split('; ')
-            .find(row => row.startsWith('NEXT_LOCALE='))
-            ?.split('=')[1];
-        setLocale(cookieLocale || 'en');
-    }, []);
-
     const navItems = [
-        { title: 'Home', href: `/${locale ?? 'en'}`, description: 'Return to homepage' },
-        { title: 'Features', href: `/${locale ?? 'en'}/features`, description: 'Explore our platform features' },
-        { title: 'Templates', href: `/${locale ?? 'en'}/templates`, description: 'Browse ready-to-use templates' },
-        { title: 'Blog', href: `/${locale ?? 'en'}/blog`, description: 'Read latest updates and tutorials' },
-        { title: 'Support', href: `/${locale ?? 'en'}/support`, description: 'Get help and documentation' }
+        { title: 'Home', href: '/' },
+        { title: 'Features', href: '/features' },
+        { title: 'Templates', href: '/templates' },
+        { title: 'Blog', href: '/blog' },
+        { title: 'Support', href: '/support' },
     ];
 
     return (
@@ -43,8 +31,6 @@ export default function Navbar() {
                     ? 'border-b border-gray-800/50 bg-black/90 backdrop-blur-xl'
                     : 'bg-transparent'
             }`}
-            role="navigation"
-            aria-label="Main navigation"
         >
             <div className={`absolute inset-0 transition-opacity duration-300 ${
                 isScrolled ? 'opacity-100' : 'opacity-0'
@@ -79,35 +65,27 @@ export default function Navbar() {
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
                         {navItems.map((item) => (
-                            <Link
+                            <motion.a
                                 key={item.title}
                                 href={item.href}
-                                 prefetch={true}
                                 className="relative text-gray-400 hover:text-white transition-colors group py-2"
-                                aria-label={item.description}
+                                whileHover={{ scale: 1.05 }}
+                                transition={{ duration: 0.2 }}
                             >
-                                <motion.span
-                                    className="relative z-10"
-                                    whileHover={{ scale: 1.05 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    {item.title}
-                                </motion.span>
+                                <span className="relative z-10">{item.title}</span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-violet-500/10 to-purple-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 <div className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 via-violet-500 to-purple-500 group-hover:w-full transition-all duration-300" />
-                            </Link>
+                            </motion.a>
                         ))}
-                        <motion.a
-                            href="/download"
+                        <motion.button 
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="relative group px-6 py-2.5 rounded-lg font-medium"
-                            aria-label="Download AutoGen Labs"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-violet-500 to-purple-500 rounded-lg" />
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-violet-500 to-purple-500 rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300" />
                             <span className="relative text-white">Download Now</span>
-                        </motion.a>
+                        </motion.button>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -139,37 +117,33 @@ export default function Navbar() {
                     <div className="relative px-4 pt-3 pb-6 space-y-2 bg-black/95 backdrop-blur-2xl border-t border-gray-800/50">
                         <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 via-violet-500/5 to-purple-500/5" />
                         {navItems.map((item, index) => (
-                            <motion.div
+                            <motion.a
                                 key={item.title}
+                                href={item.href}
+                                className="relative block px-4 py-3 text-gray-400 hover:text-white rounded-lg group transition-all"
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: index * 0.1 }}
                             >
-                                <Link
-                                    href={item.href}
-                                    className="relative block px-4 py-3 text-gray-400 hover:text-white rounded-lg group transition-all"
-                                    aria-label={item.description}
-                                >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-violet-500/10 to-purple-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                    {item.title}
-                                </Link>
-                            </motion.div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-violet-500/10 to-purple-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                {item.title}
+                            </motion.a>
                         ))}
-                        <motion.a
-                            href="/download"
+                        <motion.button 
                             className="relative w-full mt-4 px-6 py-3 rounded-lg font-medium group"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            aria-label="Download AutoGen Labs"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-violet-500 to-purple-500 rounded-lg" />
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-violet-500 to-purple-500 rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300" />
                             <span className="relative text-white">Download Now</span>
-                        </motion.a>
+                        </motion.button>
                     </div>
                 </motion.div>
             )}
         </motion.nav>
     );
 }
+
+export default React.memo(Navbar);

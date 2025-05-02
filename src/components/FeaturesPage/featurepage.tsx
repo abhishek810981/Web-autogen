@@ -3,21 +3,6 @@
 import React, { useState } from 'react';
 import { Code, Rocket, Zap, Palette, Cloud, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { generateLocalizedMetadata } from '@/app/lib/metadata';
-
-export const metadata = generateLocalizedMetadata({
-  title: {
-    en: 'Next-Generation Features',
-    es: 'Características de última generación',
-    fr: 'Fonctionnalités de nouvelle génération',
-  },
-  description: {
-    en: 'Experience the future of development with our cutting-edge toolset',
-    es: 'Experimente el futuro del desarrollo con nuestro conjunto de herramientas de vanguardia',
-    fr: 'Découvrez l\'avenir du développement avec notre ensemble d\'outils de pointe',
-  },
-  path: '/features',
-});
 
 export default function FeaturesPageComponent() {
     const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
