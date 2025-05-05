@@ -75,7 +75,7 @@ export function useIntersectionObserver(
 }
 
 // Usage example for SEO image loading:
-export function useLazyImage(src: string, options?: IntersectionOptions) {
+export function useLazyImage(src: string, options?: IntersectionOptions): [(element: HTMLElement | null) => void, string] {
   const [setRef, isVisible] = useIntersectionObserver({
     triggerOnce: true,
     ...options,

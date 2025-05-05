@@ -52,7 +52,10 @@ export async function GET() {
           const localeDomain = locale === i18nConfig.defaultLocale
             ? baseUrl
             : `https://${locale}.autogenlabs.com`;
-          const path = `/resources/${video.title[locale].toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+          // Assuming video pages exist under /resources/video-slug
+          // You might need to adjust this path based on your actual routing
+          const slug = video.title[locale as keyof typeof video.title].toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          const path = `/resources/${slug}`;
           const url = `${localeDomain}${path}`;
           
           return `
@@ -60,28 +63,15 @@ export async function GET() {
               <loc>${url}</loc>
               <video:video>
                 <video:thumbnail_loc>${localeDomain}${video.thumbnailUrl}</video:thumbnail_loc>
-                <video:title>${video.title[locale]}</video:title>
-                <video:description>${video.description[locale]}</video:description>
+                <video:title>${video.title[locale as keyof typeof video.title]}</video:title>
+                <video:description>${video.description[locale as keyof typeof video.description]}</video:description>
                 <video:content_loc>${localeDomain}${video.contentUrl}</video:content_loc>
                 <video:duration>${video.duration}</video:duration>
                 <video:publication_date>${video.uploadDate}</video:publication_date>
-                <video:family_friendly>yes</video:family_friendly>
-                <video:platform>web mobile</video:platform>
-                <video:live>no</video:live>
               </video:video>
-              <lastmod>${video.lastMod}</lastmod>
-              ${i18nConfig.locales.map(alternateLang => {
-                const alternateDomain = alternateLang === i18nConfig.defaultLocale
-                  ? baseUrl
-                  : `https://${alternateLang}.autogenlabs.com`;
-                const alternatePath = `/resources/${video.title[alternateLang].toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-                return `
-                  <xhtml:link 
-                    rel="alternate" 
-                    hreflang="${languageMetadata[alternateLang].locale}"
-                    href="${alternateDomain}${alternatePath}"
-                  />`;
-              }).join('')}
+              ${i18nConfig.locales.map(altLocale =>
+                `<xhtml:link rel="alternate" hreflang="${altLocale}" href="${altLocale === i18nConfig.defaultLocale ? baseUrl : `https://${altLocale}.autogenlabs.com`}${path}" />`
+              ).join('')}
             </url>
           `;
         }).join('');

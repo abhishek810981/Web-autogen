@@ -21,7 +21,7 @@ export function usePrefetchResources() {
 
   useEffect(() => {
     // Don't prefetch if the user has Save-Data enabled
-    if (navigator.connection?.saveData) return;
+    if ('connection' in navigator && (navigator.connection as any)?.saveData) return;
 
     // Create link elements for critical resources
     criticalResources.forEach(resource => {
@@ -39,7 +39,7 @@ export function usePrefetchResources() {
     });
 
     // Prefetch common navigation paths
-    if ('connection' in navigator) {
+    if ('connection' in navigator && navigator.connection) {
       const connection = (navigator as any).connection;
       // Only prefetch on high-speed connections
       if (connection.effectiveType === '4g' && !connection.saveData) {
@@ -88,11 +88,11 @@ export function trackPageLoadPerformance() {
     const firstContentfulPaint = paint.find(entry => entry.name === 'first-contentful-paint')?.startTime;
 
     const performanceMetrics = {
-      ttfb: navigation.responseStart - navigation.requestStart,
+      ttfb: 'navigationStart' in navigation ? navigation.responseStart - (navigation as any).requestStart : 0,
       fcp: firstContentfulPaint,
       fp: firstPaint,
-      domLoad: navigation.domContentLoadedEventEnd - navigation.navigationStart,
-      windowLoad: navigation.loadEventEnd - navigation.navigationStart,
+      domLoad: navigation.domContentLoadedEventEnd - (('navigationStart' in navigation) ? (navigation as any).navigationStart : 0),
+      windowLoad: navigation.loadEventEnd - (('navigationStart' in navigation) ? (navigation as any).navigationStart : 0),
     };
 
     // Send metrics to analytics

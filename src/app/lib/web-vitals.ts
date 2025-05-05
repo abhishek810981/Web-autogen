@@ -80,7 +80,7 @@ export function initWebVitals() {
               const metric = {
                 name: entry.entryType,
                 value: entry.entryType === 'layout-shift' ? (entry as any).value : entry.startTime,
-                rating: 'poor' as const,
+                rating: 'poor',
                 delta: 0,
                 id: generateWebVitalId(entry as any),
               };

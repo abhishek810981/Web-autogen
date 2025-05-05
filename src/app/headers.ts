@@ -44,11 +44,11 @@ export function getPrioritizedResources() {
 
 export async function generateHeaders(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const headers = new Headers();
+  const responseHeaders = new Headers();
 
   // Add security headers
   Object.entries(generateSecurityHeaders()).forEach(([key, value]) => {
-    headers.set(key, value);
+    responseHeaders.set(key, value);
   });
 
   // Add cache headers based on route type
@@ -61,15 +61,14 @@ export async function generateHeaders(request: NextRequest) {
   );
 
   Object.entries(cacheHeaders).forEach(([key, value]) => {
-    headers.set(key, value);
+    responseHeaders.set(key, value);
   });
 
   // Add language headers for internationalization
-  const headersList = headers();
-  const acceptLanguage = headersList.get('accept-language');
+  const acceptLanguage = request.headers.get('accept-language');
   if (acceptLanguage) {
-    headers.set('Content-Language', acceptLanguage.split(',')[0]);
+    responseHeaders.set('Content-Language', acceptLanguage.split(',')[0]);
   }
 
-  return headers;
+  return responseHeaders;
 }

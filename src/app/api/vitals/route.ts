@@ -21,13 +21,13 @@ export async function POST(request: NextRequest) {
     
     if (process.env.NODE_ENV === 'production') {
       // Example: Send to Google Analytics
-      if (body && body.name) {
-        const eventName = `web-vitals-${body.name.toLowerCase()}`;
+      if (body && (body as any).name) {
+        const eventName = `web-vitals-${(body as any).name.toLowerCase()}`;
         const analyticsBody = {
           name: eventName,
-          value: Math.round(body.value),
-          rating: body.rating,
-          id: body.id,
+          value: Math.round((body as any).value),
+          rating: (body as any).rating,
+          id: (body as any).id,
           page: request.headers.get('referer'),
           timeStamp: new Date().toISOString(),
         };

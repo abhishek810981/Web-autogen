@@ -33,7 +33,7 @@ export async function GET() {
                 return `
                   <xhtml:link 
                     rel="alternate" 
-                    hreflang="${languageMetadata[alternateLang].locale}"
+                    hreflang="${languageMetadata[alternateLang as keyof typeof languageMetadata].hreflang}"
                     href="${alternateDomain}/api/${type}"
                   />`;
               }).join('')}

@@ -41,7 +41,7 @@ export function trackEvent({
 
 export function trackWebVitals(metric: WebVitalsMetric) {
   if (window.gtag) {
-    window.gtag('event', metric.name, {
+    window.gtag('event', (metric as any).name, {
       event_category: 'Web Vitals',
       event_label: metric.id,
       value: Math.round(metric.value),
