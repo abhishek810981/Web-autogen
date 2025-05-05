@@ -6,7 +6,10 @@ import Navbar from '../components/Navbar/Navbar';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'React App',
+  title: 'autogenlabs',
+  icons: {
+    icon: '/images/logo.png',
+  },
   description: 'Created with Next.js and Tailwind CSS',
 }
 

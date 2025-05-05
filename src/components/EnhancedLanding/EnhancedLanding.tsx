@@ -40,14 +40,7 @@ const EnhancedLanding: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            <div className="bg-purple-900/20 text-center py-2 px-4">
-                <p className="text-sm flex items-center justify-center gap-2">
-                    <span>Launching April 28th</span>
-                    <span className="font-mono">
-                        {timeLeft.days}d : {timeLeft.hours}h : {timeLeft.minutes}m : {timeLeft.seconds}s
-                    </span>
-                </p>
-            </div>
+          
             <Hero />
             <Features />
             <DesignToCodeSection />

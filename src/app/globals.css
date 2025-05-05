@@ -74,7 +74,7 @@ body.light {
 
   --card-background-color: transparent;
   --card-border-color: rgba(24, 24, 27, 0.08);
-  --card-box-shadow-1: rgba(24, 24, 27, 0.02);
+  --card-box-shadow-1: #18181b05;
   --card-box-shadow-1-y: 3px;
   --card-box-shadow-1-blur: 6px;
   --card-box-shadow-2: rgba(24, 24, 27, 0.04);
